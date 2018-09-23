@@ -5,9 +5,8 @@ use Proto\HelloRequest;
 
 require __DIR__ . '/vendor/autoload.php';
 
-//用于连接 服务端
-
 try {
+    // 连接服务端
     $client = new Client('127.0.0.1:50052', [
         'credentials' => Grpc\ChannelCredentials::createInsecure()
     ]);
@@ -15,11 +14,10 @@ try {
     die($e->getMessage());
 }
 
-
 $request = new HelloRequest();
 $request->setName("sunlong");
 
-//调用远程服务,返回数组
+// 调用远程服务,返回数组
 $response = $client->SayHello($request)->wait();
 list($reply, $status) = $response;
 /**
